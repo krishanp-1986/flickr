@@ -10,7 +10,10 @@ import UIKit
 
 struct ImageSearch {
     static func build() -> UIViewController {
+        let useCase = ServiceFactory.useCaseFor(FlickrSearchUseCase.self)
         let imageSearchVC = ImageSearchViewController()
+        let imageSearchViewModel = ImageSearchViewModel(with: useCase)
+        imageSearchVC.bindViewModel(imageSearchViewModel)
         return imageSearchVC
     }
 }

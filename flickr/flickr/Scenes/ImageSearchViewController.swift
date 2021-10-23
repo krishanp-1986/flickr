@@ -7,5 +7,14 @@
 
 import UIKit
 
-class ImageSearchViewController: UIViewController {
+class ImageSearchViewController: BaseViewController<ImageSearchDataProvidable> {
+    
+    override func bind() {}
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.viewModel.search(for: "cricket")
+    }
 }
+
+

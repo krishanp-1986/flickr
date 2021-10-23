@@ -18,6 +18,18 @@
 		320594082723E88A0058529E /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320594072723E88A0058529E /* MainCoordinator.swift */; };
 		3205940B2723E9370058529E /* ImageSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3205940A2723E9370058529E /* ImageSearch.swift */; };
 		3205940D2723EE4D0058529E /* ImageSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3205940C2723EE4D0058529E /* ImageSearchViewController.swift */; };
+		320594102723F2DF0058529E /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3205940F2723F2DF0058529E /* EndPoint.swift */; };
+		320594142724025C0058529E /* URLComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320594132724025C0058529E /* URLComponents.swift */; };
+		32059416272403AF0058529E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32059415272403AF0058529E /* Constants.swift */; };
+		320594182724052D0058529E /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320594172724052D0058529E /* DataProvider.swift */; };
+		3205941A2724055C0058529E /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320594192724055C0058529E /* NetworkAgent.swift */; };
+		3205941C272405910058529E /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3205941B272405910058529E /* Service.swift */; };
+		3205941E272405AA0058529E /* ServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3205941D272405AA0058529E /* ServiceFactory.swift */; };
+		320594202724061E0058529E /* FlickrSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3205941F2724061E0058529E /* FlickrSearchUseCase.swift */; };
+		320594232724083C0058529E /* SearchResultsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320594222724083C0058529E /* SearchResultsDTO.swift */; };
+		32059426272416370058529E /* BindableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32059425272416370058529E /* BindableType.swift */; };
+		32059428272417120058529E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32059427272417120058529E /* BaseViewController.swift */; };
+		3205942A272417560058529E /* ImageSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32059429272417560058529E /* ImageSearchViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +65,18 @@
 		320594072723E88A0058529E /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		3205940A2723E9370058529E /* ImageSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearch.swift; sourceTree = "<group>"; };
 		3205940C2723EE4D0058529E /* ImageSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchViewController.swift; sourceTree = "<group>"; };
+		3205940F2723F2DF0058529E /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		320594132724025C0058529E /* URLComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLComponents.swift; sourceTree = "<group>"; };
+		32059415272403AF0058529E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		320594172724052D0058529E /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		320594192724055C0058529E /* NetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
+		3205941B272405910058529E /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		3205941D272405AA0058529E /* ServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceFactory.swift; sourceTree = "<group>"; };
+		3205941F2724061E0058529E /* FlickrSearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrSearchUseCase.swift; sourceTree = "<group>"; };
+		320594222724083C0058529E /* SearchResultsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsDTO.swift; sourceTree = "<group>"; };
+		32059425272416370058529E /* BindableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableType.swift; sourceTree = "<group>"; };
+		32059427272417120058529E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		32059429272417560058529E /* ImageSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +127,9 @@
 		320593D32722FF120058529E /* flickr */ = {
 			isa = PBXGroup;
 			children = (
+				320594212724081A0058529E /* Models */,
+				32059411272402400058529E /* Common */,
+				3205940E2723F2C00058529E /* Service */,
 				320594092723E9250058529E /* Scenes */,
 				320594042723E85A0058529E /* Coordinator */,
 				320593D42722FF120058529E /* AppDelegate.swift */,
@@ -145,8 +172,57 @@
 			children = (
 				3205940A2723E9370058529E /* ImageSearch.swift */,
 				3205940C2723EE4D0058529E /* ImageSearchViewController.swift */,
+				32059429272417560058529E /* ImageSearchViewModel.swift */,
 			);
 			path = Scenes;
+			sourceTree = "<group>";
+		};
+		3205940E2723F2C00058529E /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3205940F2723F2DF0058529E /* EndPoint.swift */,
+				320594172724052D0058529E /* DataProvider.swift */,
+				320594192724055C0058529E /* NetworkAgent.swift */,
+				3205941B272405910058529E /* Service.swift */,
+				3205941D272405AA0058529E /* ServiceFactory.swift */,
+				3205941F2724061E0058529E /* FlickrSearchUseCase.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		32059411272402400058529E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				32059424272416270058529E /* Base */,
+				320594122724024C0058529E /* Extension */,
+				32059415272403AF0058529E /* Constants.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		320594122724024C0058529E /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				320594132724025C0058529E /* URLComponents.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		320594212724081A0058529E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				320594222724083C0058529E /* SearchResultsDTO.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		32059424272416270058529E /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				32059425272416370058529E /* BindableType.swift */,
+				32059427272417120058529E /* BaseViewController.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,12 +355,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32059426272416370058529E /* BindableType.swift in Sources */,
 				320594062723E86F0058529E /* Coordinator.swift in Sources */,
 				320593D52722FF120058529E /* AppDelegate.swift in Sources */,
+				320594232724083C0058529E /* SearchResultsDTO.swift in Sources */,
+				320594182724052D0058529E /* DataProvider.swift in Sources */,
 				3205940D2723EE4D0058529E /* ImageSearchViewController.swift in Sources */,
+				3205942A272417560058529E /* ImageSearchViewModel.swift in Sources */,
+				320594202724061E0058529E /* FlickrSearchUseCase.swift in Sources */,
+				32059428272417120058529E /* BaseViewController.swift in Sources */,
 				320594082723E88A0058529E /* MainCoordinator.swift in Sources */,
+				3205941E272405AA0058529E /* ServiceFactory.swift in Sources */,
+				3205941C272405910058529E /* Service.swift in Sources */,
+				3205941A2724055C0058529E /* NetworkAgent.swift in Sources */,
 				3205940B2723E9370058529E /* ImageSearch.swift in Sources */,
+				320594102723F2DF0058529E /* EndPoint.swift in Sources */,
 				320593D72722FF120058529E /* SceneDelegate.swift in Sources */,
+				320594142724025C0058529E /* URLComponents.swift in Sources */,
+				32059416272403AF0058529E /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
