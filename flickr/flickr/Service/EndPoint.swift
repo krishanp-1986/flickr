@@ -24,7 +24,7 @@ enum EndPoint {
     private var path: String {
         switch self {
         case .search:
-            return "/services/rest/"
+            return "/services/rest"
         }
     }
     
