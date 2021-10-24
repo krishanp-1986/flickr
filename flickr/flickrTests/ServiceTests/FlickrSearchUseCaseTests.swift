@@ -39,7 +39,7 @@ class FlickrSearchUseCaseTests: QuickSpec {
             }
             context("for successful request") {
                 it("should return valid search results") {
-                    mockAgent.mockFileName = "searchResults"
+                    mockAgent.mockFileName = "search"
                     var fullFill: (() -> Void)?
                     
                     success = { searchResultDto in

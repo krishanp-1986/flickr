@@ -14,6 +14,7 @@ struct ImageSearch {
         let imageSearchVC = ImageSearchViewController()
         let imageSearchViewModel = ImageSearchViewModel(with: useCase)
         imageSearchVC.bindViewModel(imageSearchViewModel)
-        return imageSearchVC
+        let navigationController = UINavigationController(rootViewController: imageSearchVC)
+        return navigationController
     }
 }

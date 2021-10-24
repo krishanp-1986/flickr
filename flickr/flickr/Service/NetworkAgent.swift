@@ -7,11 +7,19 @@
 
 import Foundation
 
-struct NetworkAgent: DataProvider {
+final class NetworkAgent: DataProvider {
     private let session = URLSession.shared
+    private var dataTask: URLSessionDataTask?
+    
+    func cancel() {
+        self.dataTask?.cancel()
+    }
+    
     func execute<T>(_ request: URLRequest, whenDone: @escaping (Result<T, ServiceError>) -> Void) where T: Decodable {
-        let task = session.dataTask(with: request) { data, response, error in
+        self.cancel()
+        self.dataTask = session.dataTask(with: request) { data, response, error in
             DispatchQueue.main.async {
+                guard let state = self.dataTask?.state, state == .completed else { return }
                 if let responseError = error {
                     whenDone(.failure(.generalError(responseError)))
                     return
@@ -38,6 +46,6 @@ struct NetworkAgent: DataProvider {
 
             }
         }
-        task.resume()
+        self.dataTask?.resume()
     }
 }

@@ -18,6 +18,7 @@ struct Constants {
             static let json = "json"
             static let apiKey = "api_key"
             static let method = "method"
+            static let noJsonCallback = "nojsoncallback"
         }
     }
     

@@ -21,16 +21,16 @@ struct SearchResultsDTO: Codable {
 // MARK: - Photos
 struct Photos: Codable {
     let page: Int
-    let pages: String
+    let pages: Int
     let perpage: Int
-    let total: String
+    let total: Int
     let photo: [Photo]
 }
 
 // MARK: - Photo
 struct Photo: Codable {
     let id, owner, secret: String
-    let server: Server
+    let server: String
     let farm: Int
     let title: String
     let ispublic, isfriend, isfamily: Int
