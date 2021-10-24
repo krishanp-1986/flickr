@@ -11,6 +11,10 @@ import SnapKit
 class ImageSearchViewController: BaseViewController<ImageSearchDataProvidable> {
     
     override func bind() {
+        self.collectionViewAdapter.loadMoreListener = { [weak self] in
+            self?.viewModel.loadMore()
+        }
+        
         self.viewModel.updateViewBasedOn = { [weak self] state in
             switch state {
             case .loaded(let resultsViewModel):
@@ -22,8 +26,6 @@ class ImageSearchViewController: BaseViewController<ImageSearchDataProvidable> {
                 self?.displayBasicAlert(for: error)
             case .loading:
                 self?.shouldShowLoading(true)
-            default:
-                break
             }
         }
     }
@@ -80,8 +82,9 @@ class ImageSearchViewController: BaseViewController<ImageSearchDataProvidable> {
 extension ImageSearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         self.searchTimer?.invalidate()
-        guard let searchText = searchController.searchBar.text else { return }
+        guard let searchText = searchController.searchBar.text, !searchText.isEmpty else { return }
         searchTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { [weak self] _ in
+            self?.collectionViewAdapter.reset()
             self?.viewModel.search(for: searchText)
         })
     }
