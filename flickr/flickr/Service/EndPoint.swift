@@ -43,7 +43,8 @@ enum EndPoint {
                     Constants.StringConstants.URLConstants.per_page: String(Self.perPage),
                     Constants.StringConstants.URLConstants.format: Constants.StringConstants.URLConstants.json,
                     Constants.StringConstants.URLConstants.apiKey: Self.apiKey,
-                    Constants.StringConstants.URLConstants.method: self.method]
+                    Constants.StringConstants.URLConstants.method: self.method,
+                    Constants.StringConstants.URLConstants.noJsonCallback: String(1)]
             
         }
     }

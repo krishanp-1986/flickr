@@ -8,6 +8,7 @@
 import Foundation
 
 protocol DataProvider {
+    func cancel()
     func execute<T: Decodable>(_ request: URLRequest, whenDone: @escaping (Result<T, ServiceError>) -> Void)
 }
 

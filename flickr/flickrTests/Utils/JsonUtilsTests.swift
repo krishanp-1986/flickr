@@ -24,6 +24,17 @@ class JsonUtilsTests: QuickSpec {
                 }
             }
             
+            context("for valid search results") {
+                it("should return search results dto") {
+                    let decoded = JsonUtils.convertJsonIntoDecodable(SearchResultsDTO.self,
+                                                                     fileName: "search",
+                                                                     bundle: self.bundle,
+                                                                     inDirectory: "TestResponse")
+                    expect(decoded).toNot(beNil())
+                }
+            }
+
+            
             context("for empty json") {
                 it("should convert into decodable ") {
                     let decoded = JsonUtils.convertJsonIntoDecodable([String: String].self,

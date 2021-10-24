@@ -11,6 +11,9 @@ import Foundation
 class MockNetworkAgent: DataProvider {
     private let bundle = Bundle(for: MockNetworkAgent.self)
     var mockFileName: String = ""
+    
+    func cancel() {}
+    
     func execute<T>(_ request: URLRequest, whenDone: @escaping (Result<T, ServiceError>) -> Void) where T: Decodable {
         DispatchQueue.main.async {
             guard let decodable = JsonUtils.convertJsonIntoDecodable(T.self,
