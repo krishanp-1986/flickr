@@ -33,9 +33,8 @@ class BaseViewController<VM>: UIViewController, BindableType {
         if isLoading {
             if (self.loadingIndicatorView.superview != nil) { return }
             self.view.addSubview(loadingIndicatorView)
-            let safeAreaLayoutGuide = self.view.safeAreaLayoutGuide
             loadingIndicatorView.snp.makeConstraints {
-                $0.edges.equalTo(safeAreaLayoutGuide)
+                $0.edges.equalToSuperview()
             }
         } else {
             self.loadingIndicatorView.removeFromSuperview()
