@@ -11,8 +11,14 @@ import SnapKit
 class ImageSearchViewController: BaseViewController<ImageSearchDataProvidable> {
     
     override func bind() {
-        self.collectionViewAdapter.loadMoreListener = { [weak self] in
-            self?.viewModel.loadMore()
+        self.collectionViewAdapter.loadMoreListener = { [unowned self] in
+            self.viewModel.loadMore()
+        }
+        
+        self.searchHistoryTableViewAdapter.onSearchHistorySelected = { [unowned self] searchText in
+            self.searchHistoryTableView.removeFromSuperview()
+            self.searchController.searchBar.resignFirstResponder()
+            self.request(searchText)
         }
         
         self.viewModel.updateViewBasedOn = { [weak self] state in
@@ -25,7 +31,10 @@ class ImageSearchViewController: BaseViewController<ImageSearchDataProvidable> {
                 self?.shouldShowLoading(false)
                 self?.displayBasicAlert(for: error)
             case .loading:
+                self?.collectionViewAdapter.reset()
                 self?.shouldShowLoading(true)
+            case .searchStarted(let histories):
+                self?.searchHistoryTableViewAdapter.updateSearchHistory(histories)
             }
         }
     }
@@ -49,12 +58,13 @@ class ImageSearchViewController: BaseViewController<ImageSearchDataProvidable> {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Images"
+        searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }
     
     private let searchController = UISearchController(searchResultsController: nil)
-    private var searchTimer: Timer?
+    
     private lazy var collectionViewAdapter =  ImageResultsCollectionViewAdapter(with: self.imagesCollectionView)
     private lazy var imagesCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
@@ -62,7 +72,16 @@ class ImageSearchViewController: BaseViewController<ImageSearchDataProvidable> {
         return collectionView
     }()
     
-    func createLayout() -> UICollectionViewLayout {
+    private lazy var searchHistoryTableViewAdapter = SearchHistoryTableViewAdapter(with: self.searchHistoryTableView)
+    private lazy var searchHistoryTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .singleLine
+        tableView.backgroundColor = .white
+        tableView.registerCell(UITableViewCell.self)
+        return tableView
+    }()
+    
+    private func createLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),
                                               heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -77,16 +96,35 @@ class ImageSearchViewController: BaseViewController<ImageSearchDataProvidable> {
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
+    
+    private func request(_ searchText: String) {
+        self.searchController.searchBar.text = ""
+        self.viewModel.search(for: searchText)
+    }
 }
 
 extension ImageSearchViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        self.searchTimer?.invalidate()
+    func updateSearchResults(for searchController: UISearchController) {}
+}
+
+extension ImageSearchViewController: UISearchBarDelegate {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        addSearchHistoryTableView()
+        self.viewModel.loadSearchHistory()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        self.searchHistoryTableView.removeFromSuperview()
         guard let searchText = searchController.searchBar.text, !searchText.isEmpty else { return }
-        searchTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { [weak self] _ in
-            self?.collectionViewAdapter.reset()
-            self?.viewModel.search(for: searchText)
-        })
+        request(searchText)
+    }
+    
+    private func addSearchHistoryTableView() {
+        self.view.addSubview(searchHistoryTableView)
+        let safeAreaLayoutGuide = self.view.safeAreaLayoutGuide
+        self.searchHistoryTableView.snp.makeConstraints {
+            $0.edges.equalTo(safeAreaLayoutGuide)
+        }
     }
 }
 

@@ -12,6 +12,7 @@ protocol ImageSearchDataProvidable {
     var updateViewBasedOn: ((ImageSearchViewModel.State) -> Void)? {get set}
     func search(for searchText: String)
     func loadMore()
+    func loadSearchHistory()
 }
 
 final class ImageSearchViewModel: ImageSearchDataProvidable {
@@ -22,12 +23,17 @@ final class ImageSearchViewModel: ImageSearchDataProvidable {
     }
     
    func search(for searchText: String) {
-       self.recentSearches.append(searchText)
+       
+       if let lastSearch = self.recentSearches.first, lastSearch.caseInsensitiveCompare(searchText) == .orderedSame {
+           return
+       }
+       
        self.updateViewBasedOn?(.loading)
        currentPageIndex = 1
        totalPages = 0
-       
        self.requestForImages(searchText, pageIndex: currentPageIndex)
+       
+       updateRecentSearchHistory(searchText)
     }
     
     func loadMore() {
@@ -38,6 +44,10 @@ final class ImageSearchViewModel: ImageSearchDataProvidable {
         }
         self.requestForImages(self.recentSearches.last ?? "", pageIndex: self.currentPageIndex + 1)
         self.currentPageIndex += 1
+    }
+    
+    func loadSearchHistory() {
+        self.updateViewBasedOn?(.searchStarted(recentSearches))
     }
     
     // MARK: Private
@@ -60,12 +70,20 @@ final class ImageSearchViewModel: ImageSearchDataProvidable {
             }
         }
     }
+    
+    private func updateRecentSearchHistory(_ searchText: String) {
+        if let existingIndex = self.recentSearches.firstIndex(of: searchText) {
+            self.recentSearches.remove(at: existingIndex)
+        }
+        self.recentSearches.insert(searchText, at: 0)
+    }
 }
 
 extension ImageSearchViewModel {
     // Viewmodel acts like state machine
     enum State {
         case loading
+        case searchStarted([String])
         case loaded([ImageCollectionViewCellViewModel])
         case error(Error)
     }
