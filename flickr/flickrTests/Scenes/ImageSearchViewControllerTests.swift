@@ -35,11 +35,22 @@ class ImageSearchViewControllerTests: QuickSpec {
 }
 
 final class MockImageSearchViewModel: ImageSearchDataProvidable {
+    func loadMore() {
+        loadMoreCalled = true
+    }
+    
+    func loadSearchHistory() {
+        loadSearchHistoryCalled = true
+    }
+    
+    
     func search(for searchText: String) {
         searchCalled = true
     }
     
     private(set) var searchCalled: Bool = false
+    private(set) var loadSearchHistoryCalled: Bool = false
+    private(set) var loadMoreCalled: Bool = false
     
     init() {}
     init(with useCase: FlickrSearchDataProvidable) {}
